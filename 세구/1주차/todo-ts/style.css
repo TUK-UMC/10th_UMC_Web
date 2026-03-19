@@ -1,0 +1,124 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+}
+
+body {
+    background-color: #eef1f5; /* 약간 회색빛이 도는 배경 */
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+.todo-container {
+    background-color: #ffffff;
+    width: 600px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 25px;
+    color: #000;
+}
+
+.input-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+#todo-input {
+    flex: 1;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #d1d1d1;
+    border-radius: 6px;
+    outline: none;
+}
+
+#todo-input:focus {
+    border-color: #28a745;
+}
+
+#add-btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#add-btn:hover {
+    background-color: #218838;
+}
+
+.lists-section {
+    display: flex;
+    gap: 20px;
+}
+
+.list-column {
+    flex: 1;
+}
+
+h2 {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border: 1px solid #e1e1e1;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* 버튼 공통 스타일 */
+.complete-btn, .delete-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* 완료 버튼 (초록색) */
+.complete-btn {
+    background-color: #28a745;
+}
+
+.complete-btn:hover {
+    background-color: #218838;
+}
+
+/* 삭제 버튼 (빨간색) */
+.delete-btn {
+    background-color: #dc3545;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
