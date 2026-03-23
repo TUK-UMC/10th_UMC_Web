@@ -1,4 +1,5 @@
 import { useTodo } from "../contexts/TodoContext";
+import ThemeButton from "./ThemeButton";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 
@@ -8,6 +9,7 @@ const Todo = () => {
   return (
     <>
       <div className="todo-container">
+        <ThemeButton />
         <h1 className="todo-container__header">Todo List</h1>
         <TodoForm />
         <div className="render-container">

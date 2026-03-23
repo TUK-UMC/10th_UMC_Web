@@ -9,6 +9,11 @@ body {
   margin: 0;
 }
 
+body.dark {
+  background-color: #121212;
+  color: white;
+}
+
 /* ===== Todo 컨테이너 ===== */
 .todo-container {
   background: white;
@@ -17,6 +22,12 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 350px;
   text-align: center;
+}
+
+body.dark .todo-container {
+  background-color: #1e1e1e;
+  color: white;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
 }
 
 /* ===== 제목 ===== */
@@ -38,6 +49,12 @@ body {
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
+}
+
+body.dark .todo-container__input {
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  color: white;
 }
 
 .todo-container__button {
@@ -96,6 +113,12 @@ body {
   width: 100%; /* Make sure the item takes full available width */
 }
 
+body.dark .render-container__item {
+  background-color: #2a2a2a;
+  border-bottom: 1px solid #444;
+  color: white;
+}
+
 .render-container__item-text {
   flex: 1;
 
@@ -118,4 +141,18 @@ body {
 
 .render-container__item-button:hover {
   background-color: #c82333;
+}
+
+.theme__button {
+  padding: 10px 16px;
+  margin: 16px 0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: black;
+}
+
+body.dark .theme__button {
+  background-color: #444;
+  color: white;
 }
