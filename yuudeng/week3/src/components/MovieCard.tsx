@@ -5,7 +5,7 @@ interface MovieCardProps {
   movie: Movie;
 }
 
-export default function MovieCard({ movie }: MovieCardProps) {
+const MovieCard = ({ movie }: MovieCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -35,4 +35,6 @@ export default function MovieCard({ movie }: MovieCardProps) {
       )}
     </div>
   );
-}
+};
+
+export default MovieCard;
