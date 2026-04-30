@@ -54,7 +54,7 @@ const LoginPage = () => {
             >
             <div className="flex items-center justify-center gap-4">
                 <img
-                src={"/images/google.svg"}
+                src={"/google.png"}
                 alt="Google Logo Image"
                 className="w-8"
                 />
