@@ -1,38 +1,43 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { useEffect, useState } from "react";
+import { Plus } from "lucide-react";
+import { Sidebar } from "../components/Sidebar";
 
 const HomeLayout = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsOpen(false);
+      } else {
+        setIsOpen(true);
+      }
+    };
+    handleResize(); // 초기 실행
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
-      <div className="h-dvh flex flex-col bg-black">
-        <div className="flex justify-between items-center p-4 bg-[#141414]">
-          <NavLink to="/" className="text-xl font-bold text-[#E63996]">
-            돌려돌려 돌림판
-          </NavLink>
-          <div className="flex gap-4 text-md">
-            <NavLink
-              to="/login"
-              className="flex bg-black text-white py-2 px-4 rounded-md"
-            >
-              로그인
-            </NavLink>
-            <NavLink
-              to="/signup"
-              className="flex bg-[#E63996] text-white py-2 px-4 rounded-md"
-            >
-              회원가입
-            </NavLink>
-            <NavLink
-              to="/my"
-              className="flex bg-[#E63996] text-white py-2 px-4 rounded-md"
-            >
-              마이페이지
-            </NavLink>
-          </div>
+      <div className="min-h-screen flex flex-col bg-white dark:bg-[#28292E]">
+        <Navbar onMenuClick={() => setIsOpen((prev) => !prev)} />
+        <div className="flex flex-1">
+          <Sidebar isOpen={isOpen} />
+          <main
+            className={`flex-1 mt-17 ${isOpen ? "ml-70" : "ml-0"}`}
+            onClick={() => setIsOpen(false)}
+          >
+            <Outlet />
+          </main>
         </div>
-        <main className="flex-1">
-          <Outlet />
-        </main>
-        <footer>푸터</footer>
+        <Footer />
+        <button className="flex items-center justify-center fixed bottom-10 right-10 size-15 rounded-full bg-pink-500">
+          <Plus color="white" size={30} />
+        </button>
       </div>
     </>
   );

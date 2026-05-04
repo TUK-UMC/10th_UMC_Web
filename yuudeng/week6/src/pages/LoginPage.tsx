@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import { validateSignin, type UserSigninImformation } from "../utils/validate";
 import { ChevronLeft } from "lucide-react";
@@ -8,11 +8,14 @@ import { useEffect } from "react";
 const LoginPage = () => {
   const { login, accessToken } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   useEffect(() => {
     if (accessToken) {
-      navigate("/");
+      navigate(from, { replace: true });
     }
-  }, [navigate, accessToken]);
+  }, [navigate, accessToken, from]);
 
   const { values, errors, touched, getInPutProps } =
     useForm<UserSigninImformation>({
@@ -28,8 +31,11 @@ const LoginPage = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href =
-      import.meta.env.VITE_SERVER_API_URL + "/v1/auth/google/login";
+    sessionStorage.setItem("redirectPath", from);
+
+    window.location.href = `${
+      import.meta.env.VITE_SERVER_API_URL
+    }/v1/auth/google/login`;
   };
 
   // 오류가 하나라도 있거나, 입력값이 비어있으면 버튼을 비활성화

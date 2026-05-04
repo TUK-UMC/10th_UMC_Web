@@ -14,14 +14,15 @@ interface AuthContextType {
   refreshToken: string | null;
   login: (signinData: RequestSigninDto) => Promise<void>;
   logout: () => Promise<void>;
+  setTokens: (accessToken: string, refreshToken: string | null) => void;
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const AuthContext = createContext<AuthContextType>({
+const AuthContext = createContext<AuthContextType>({
   accessToken: null,
   refreshToken: null,
   login: async () => {},
   logout: async () => {},
+  setTokens: () => {},
 });
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
@@ -57,7 +58,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         setAccessToken(newAccessToken);
         setRefreshToken(newRefreshToken);
         alert("로그인 성공");
-        window.location.href = "/my";
       }
     } catch (error) {
       console.error("로그인 실패:", error);
@@ -79,8 +79,23 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const setTokens = (
+    newAccessToken: string,
+    newRefreshToken: string | null,
+  ) => {
+    setAccessTokenToStorage(newAccessToken);
+    setAccessToken(newAccessToken);
+
+    if (newRefreshToken) {
+      setRefreshTokenToStorage(newRefreshToken);
+      setRefreshToken(newRefreshToken);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ accessToken, refreshToken, login, logout }}>
+    <AuthContext.Provider
+      value={{ accessToken, refreshToken, login, logout, setTokens }}
+    >
       {children}
     </AuthContext.Provider>
   );
