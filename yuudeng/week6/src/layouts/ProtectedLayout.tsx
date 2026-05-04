@@ -56,7 +56,7 @@ export const ProtectedLayout = () => {
     return <Navigate to="/login" replace />;
   }
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-[#28292E]">
       <Navbar onMenuClick={() => setIsOpen((prev) => !prev)} />
       <div className="flex flex-1">
         <Sidebar isOpen={isOpen} />

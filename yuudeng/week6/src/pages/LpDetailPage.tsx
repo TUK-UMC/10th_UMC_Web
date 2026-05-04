@@ -44,11 +44,11 @@ const LpDetailPage = () => {
 
   return (
     <div className="flex items-start justify-center w-full my-6">
-      <div className="flex items-center flex-col bg-[#3c3d45] w-200 p-6 rounded-2xl text-white">
+      <div className="flex items-center flex-col bg-gray-200 dark:bg-[#3c3d45] w-200 p-6 rounded-2xl text-gray-900 dark:text-white">
         <div className="flex flex-col justify-center items-center w-150 p-4">
           <section className="flex items-center justify-between w-full m-4">
             <div className="flex items-center justify-center gap-2">
-              <div className="flex bg-white rounded-full w-10 h-10"></div>
+              <div className="flex bg-black dark:bg-white rounded-full w-10 h-10"></div>
               <p className="flex font-bold">게시자</p>
             </div>
             <p className="flex">{getRelativeTime(lp?.data.updatedAt)}</p>
@@ -60,18 +60,18 @@ const LpDetailPage = () => {
               <Trash2 className="flex" />
             </div>
           </section>
-          <section className="relative flex items-center justify-center bg-[#3c3d45] shadow-xl/30 shadow-black w-110 h-110 overflow-hidden m-4">
+          <section className="relative flex items-center justify-center bg-gray-200 dark:bg-[#3c3d45] shadow-xl/30 shadow-black w-110 h-110 overflow-hidden m-4">
             <img
               src={lp?.data.thumbnail}
               alt={lp?.data.title}
-              className="w-100 aspect-square rounded-full object-cover border-2 border-gray-500 animate-spin"
+              className="w-100 aspect-square rounded-full object-cover border-2 border-gray-300 dark:border-gray-500 animate-spin"
               style={{
                 animation: "spin 5s linear infinite",
                 animationDirection: "reverse",
               }}
             />
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className=" w-20 h-20 rounded-full bg-white border-gray-400 border-2"></div>
+              <div className=" w-20 h-20 rounded-full bg-white border-gray-300 dark:border-gray-500 border-2"></div>
             </div>
           </section>
           <p className="mb-4">{lp?.data.content}</p>
@@ -80,7 +80,7 @@ const LpDetailPage = () => {
               lp.data.tags.map((tag) => (
                 <button
                   key={tag.id}
-                  className="bg-gray-600 px-3 py-1 text-white rounded-2xl text-sm hover:bg-gray-500 transition"
+                  className="bg-gray-300 dark:bg-gray-600 px-3 py-1 text-gray-900 dark:text-white rounded-2xl text-sm hover:bg-gray-500 transition"
                 >
                   #{tag.name}
                 </button>
