@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { Search } from "lucide-react";
-import useGetMyInfo from "../hooks/queries/useGetMyInfo";
+import useGetMyInfo from "../../hooks/queries/useGetMyInfo";
 
 interface NavbarProps {
   onMenuClick?: () => void; // 🔹 사이드바 열기 함수 받기

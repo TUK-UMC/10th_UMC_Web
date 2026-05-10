@@ -11,6 +11,14 @@ export type Likes = {
   lpId: number;
 };
 
+export type LpAuthor = {
+  id: number;
+  name: string;
+  email: string;
+  bio: string | null;
+  avatar: string | null;
+};
+
 export type Lp = {
   id: number;
   title: string;
@@ -22,6 +30,14 @@ export type Lp = {
   updatedAt: Date;
   tags: Tag[];
   likes: Likes[];
+  author?: LpAuthor;
+};
+
+export type RequestLpCreateDto = {
+  title: string;
+  content: string;
+  thumbnail: string;
+  tags: string[];
 };
 
 export type RequestLpDto = {

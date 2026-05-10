@@ -51,6 +51,11 @@ const SignupPage = () => {
     navigate("/login");
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href =
+      import.meta.env.VITE_SERVER_API_URL + `/v1/auth/google/login`;
+  };
+
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordCheck, setShowPasswordCheck] = useState(false);
 
@@ -64,9 +69,20 @@ const SignupPage = () => {
             </button>
             <h1 className="text-xl font-bold">회원가입</h1>
           </div>
-          <div className="flex justify-center items-center rounded-md border border-white p-2.5">
-            <p>구글 로그인</p>
-          </div>
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="flex justify-center items-center rounded-md border border-white p-2.5"
+          >
+            <div className="flex items-center justify-center gap-4">
+              <img
+                src={"/images/google.svg"}
+                alt="Google Logo Image"
+                className="w-8"
+              />
+              <p>구글 로그인</p>
+            </div>
+          </button>
           <div className="flex justify-between items-center">
             <hr className="text-white w-24" />
             <p className="font-bold">OR</p>
