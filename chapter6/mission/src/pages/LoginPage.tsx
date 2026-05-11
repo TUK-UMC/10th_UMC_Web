@@ -45,7 +45,7 @@ const LoginPage = () => {
 
     return (
     <>
-        <div className="flex flex-col justify-center items-center h-full gap-4 text-white">
+        <div className="flex flex-col justify-center items-center h-full gap-4 text-black dark:text-white">
         <div className="flex flex-col gap-3">
             <div className="relative flex justify-center items-center pb-6">
             <button className="absolute left-0" onClick={() => navigate("/")}>
@@ -56,7 +56,7 @@ const LoginPage = () => {
             <button
             type="button"
             onClick={handleGoogleLogin}
-            className="flex justify-center items-center rounded-md border border-white p-2.5"
+            className="flex justify-center items-center rounded-md border border-black dark:border-white p-2.5"
             >
             <div className="flex items-center justify-center gap-4">
                 <img
@@ -68,9 +68,9 @@ const LoginPage = () => {
             </div>
             </button>
             <div className="flex justify-between items-center">
-            <hr className="text-white w-24" />
+            <hr className="text-black dark:text-white w-24" />
             <p className="font-bold">OR</p>
-            <hr className="text-white w-24" />
+            <hr className="text-black dark:text-white w-24" />
             </div>
             <input
             {...getInPutProps("email")}
