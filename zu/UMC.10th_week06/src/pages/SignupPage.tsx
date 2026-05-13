@@ -1,188 +1,163 @@
-import z from "zod";
-import { useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
+import { ChevronLeft, Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { postSignup } from "../api/auth";
-import SignupHeader from "../components/signup/SignupHeader";
-import EmailStep from "../components/signup/EmailStep";
-import PasswordStep from "../components/signup/PasswordStep";
-import ProfileStep from "../components/signup/ProfileStep";
+import { postSignup } from "../apis/auth";
+import { useState } from "react";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const emailSchema = z.object({
-  email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
-});
-const passwordSchema = z
-  .object({
+const schema = z
+    .object({
+    email: z.string().email({ message: "올바른 이메일 형식을 입력해주세요." }),
     password: z
-      .string()
-      .min(8, { message: "비밀번호는 8자 이상입니다." })
-      .max(20, { message: "비밀번호는 20자 이하입니다." }),
+        .string()
+        .min(8, { message: "비밀번호는 8자 이상입니다." })
+        .max(20, { message: "비밀번호는 20자 이하입니다." }),
     passwordCheck: z
-      .string()
-      .min(8, { message: "비밀번호는 8자 이상입니다." })
-      .max(20, { message: "비밀번호는 20자 이하입니다." }),
-  })
-  .refine((d) => d.password === d.passwordCheck, {
-    path: ["passwordCheck"],
+        .string()
+        .min(8, { message: "비밀번호는 8자 이상입니다." })
+        .max(20, { message: "비밀번호는 20자 이하입니다." }),
+    name: z.string().min(1, { message: "이름을 입력해주세요." }),
+    })
+    .refine((data) => data.password === data.passwordCheck, {
     message: "비밀번호가 일치하지 않습니다.",
-  });
-const nameSchema = z.object({
-  name: z.string().min(1, { message: "이름을 입력해주세요." }),
-});
-
-const formSchema = z
-  .object({
-    email: z
-      .string()
-      .email({ message: "올바른 이메일 형식이 아닙니다." }),
-
-    password: z
-      .string()
-      .min(8, { message: "비밀번호는 8자 이상입니다." })
-      .max(20, { message: "비밀번호는 20자 이하입니다." }),
-
-    passwordCheck: z
-      .string()
-      .min(8, { message: "비밀번호는 8자 이상입니다." })
-      .max(20, { message: "비밀번호는 20자 이하입니다." }),
-
-    name: z
-      .string()
-      .min(1, { message: "이름을 입력해주세요." }),
-  })
-  .refine((data) => data.password === data.passwordCheck, {
     path: ["passwordCheck"],
-    message: "비밀번호가 일치하지 않습니다.",
-  });
-export type FormFields = z.infer<typeof emailSchema> &
-  z.infer<typeof passwordSchema> &
-  z.infer<typeof nameSchema>;
+    });
 
-export type Step = 1 | 2 | 3;
+type FormFields = z.infer<typeof schema>;
 
-export default function SignupPage() {
-  const navigate = useNavigate();
-  const [step, setStep] = useState<Step>(1);
-
-  const {
+const SignupPage = () => {
+    const navigate = useNavigate();
+    const {
     register,
     handleSubmit,
-    setError,
-    clearErrors,
-    watch,
-    formState: { errors, isSubmitting },
-  } = useForm<FormFields>({
+    formState: { errors, isSubmitting, isValid },
+    } = useForm<FormFields>({
+    defaultValues: {
+        name: "",
+        email: "",
+        password: "",
+        passwordCheck: "",
+    },
+    resolver: zodResolver(schema),
     mode: "onChange",
-    resolver: zodResolver(formSchema),
-    defaultValues: { email: "", password: "", passwordCheck: "", name: "" },
-  });
+    });
 
-  const email = watch("email");
-  const password = watch("password");
-  const passwordCheck = watch("passwordCheck");
-  const name = watch("name");
+    const onSubmit: SubmitHandler<FormFields> = async (data) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { passwordCheck, ...rest } = data;
+    const response = await postSignup(rest);
+    console.log(response);
+    navigate("/login");
+    };
 
-  const isEmailValid = useMemo(
-    () => emailSchema.safeParse({ email }).success,
-    [email]
-  );
-  const isPasswordValid = useMemo(
-    () => passwordSchema.safeParse({ password, passwordCheck }).success,
-    [password, passwordCheck]
-  );
-  const isNameValid = useMemo(
-    () => nameSchema.safeParse({ name }).success,
-    [name]
-  );
+    const [showPassword, setShowPassword] = useState(false);
+    const [showPasswordCheck, setShowPasswordCheck] = useState(false);
 
-  const prevStep = (s: Step): Step => (s === 1 ? 1 : ((s - 1) as Step));
-  const nextStep = (s: Step): Step => (s === 3 ? 3 : ((s + 1) as Step));
+    return (
+    <>
+        <div className="flex flex-col justify-center items-center h-full gap-4 text-white">
+        <div className="flex flex-col gap-3">
+            <div className="relative flex justify-center items-center pb-6">
+            <button className="absolute left-0" onClick={() => navigate("/")}>
+                <ChevronLeft />
+            </button>
+            <h1 className="text-xl font-bold">회원가입</h1>
+            </div>
+            <div className="flex justify-center items-center rounded-md border border-white p-2.5">
+            <p>구글 로그인</p>
+            </div>
+            <div className="flex justify-between items-center">
+            <hr className="text-white w-24" />
+            <p className="font-bold">OR</p>
+            <hr className="text-white w-24" />
+            </div>
+            <input
+            {...register("name")}
+            className={`border w-80 p-2.5 focus:outline-none focus:border-[#807bff] rounded-sm
+            ${errors?.name ? "border-red-500" : "border-[#ccc]"}`}
+            type={"name"}
+            placeholder={"이름을 입력해주세요!"}
+            />
+            {errors.name && (
+            <div className={"text-red-500 text-sm"}>{errors.name.message}</div>
+            )}
 
-  const goBack = () => {
-    if (step === 1) navigate("/");
-    else setStep((s) => prevStep(s));
-  };
+            <input
+            {...register("email")}
+            className={`border w-80 p-2.5 focus:outline-none focus:border-[#807bff] rounded-sm
+            ${errors?.email ? "border-red-500" : "border-[#ccc]"}`}
+            type={"email"}
+            placeholder={"이메일을 입력해주세요!"}
+            />
+            {errors.email && (
+            <div
+                className={
+                "flex items-center justify-center text-red-500 text-sm"
+                }
+            >
+                {errors.email.message}
+            </div>
+            )}
 
-  const goNextFromEmail = () => {
-    const r = emailSchema.safeParse({ email });
-    if (!r.success) {
-      setError("email", {
-        message: r.error.issues[0]?.message || "이메일 오류",
-      });
-      return;
-    }
-    clearErrors("email");
-    setStep(2);
-  };
+            <div className="relative">
+            <input
+                {...register("password")}
+                name="password"
+                className={`border w-80 p-2.5 focus:outline-none focus:border-[#807bff] rounded-sm
+                ${errors?.password ? "border-red-500" : "border-[#ccc]"}`}
+                type={showPassword ? "text" : "password"}
+                placeholder={"비밀번호를 입력해주세요!"}
+            />
+            <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+            >
+                {showPassword ? <EyeOff /> : <Eye />}
+            </button>
+            </div>
+            {errors.password && (
+            <div className={"text-red-500 text-sm"}>
+                {errors.password.message}
+            </div>
+            )}
 
-  const goNextFromPassword = () => {
-    const r = passwordSchema.safeParse({ password, passwordCheck });
-    if (!r.success) {
-      r.error.issues.forEach((i) => {
-        const key = i.path?.[0];
-        if (key === "password" || key === "passwordCheck") {
-          setError(key, { message: i.message });
-        }
-      });
-      return;
-    }
-    clearErrors(["password", "passwordCheck"]);
-    setStep((s) => nextStep(s));
-  };
+            <div className="relative">
+            <input
+                {...register("passwordCheck")}
+                name="passwordCheck"
+                className={`border w-80 p-2.5 focus:outline-none focus:border-[#807bff] rounded-sm
+                ${errors?.passwordCheck ? "border-red-500" : "border-[#ccc]"}`}
+                type={showPasswordCheck ? "text" : "password"}
+                placeholder={"비밀번호를 다시 한 번 입력해주세요!"}
+            />
+            <button
+                type="button"
+                onClick={() => setShowPasswordCheck((prev) => !prev)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+            >
+                {showPasswordCheck ? <EyeOff /> : <Eye />}
+            </button>
+            </div>
+            {errors.passwordCheck && (
+            <div className={"text-red-500 text-sm"}>
+                {errors.passwordCheck.message}
+            </div>
+            )}
 
-  const onComplete = async () => {
-    const e = emailSchema.safeParse({ email });
-    const p = passwordSchema.safeParse({ password, passwordCheck });
-    const n = nameSchema.safeParse({ name });
-    if (!e.success || !p.success || !n.success) return;
+            <button
+            type="button"
+            onClick={handleSubmit(onSubmit)}
+            disabled={isSubmitting || !isValid}
+            className="w-full bg-[#E63996] text-white py-3 rounded-md text-lg font-medium transition-colors cursor-pointer disabled:bg-[#161616] disabled:text-gray-200"
+            >
+            회원가입
+            </button>
+        </div>
+        </div>
+    </>
+    );
+};
 
-    try {
-      await postSignup({ email, password, name });
-      navigate("/");
-    } catch {
-      alert("회원가입에 실패했습니다. 잠시 후 다시 시도해주세요.");
-    }
-  };
-
-  return (
-    <div className="w-full h-[calc(100%-90px)] flex flex-col justify-center items-center text-white bg-black">
-      <div className="w-[400px] flex flex-col items-center gap-4">
-        <SignupHeader
-          title="회원가입"
-          onBack={goBack}
-          showEmail={step === 2}
-          email={email}
-        />
-
-        {step === 1 && (
-          <EmailStep
-            register={register}
-            errors={errors}
-            canNext={isEmailValid}
-            onNext={goNextFromEmail}
-          />
-        )}
-
-        {step === 2 && (
-          <PasswordStep
-            register={register}
-            errors={errors}
-            canNext={isPasswordValid}
-            onNext={goNextFromPassword}
-          />
-        )}
-
-        {step === 3 && (
-          <ProfileStep
-            register={register}
-            errors={errors}
-            canSubmit={isNameValid && !isSubmitting}
-            onSubmit={handleSubmit(onComplete)}
-            submitting={isSubmitting}
-          />
-        )}
-      </div>
-    </div>
-  );
-}
+export default SignupPage;

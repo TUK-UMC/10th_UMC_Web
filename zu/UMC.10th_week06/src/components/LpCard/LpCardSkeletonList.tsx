@@ -1,17 +1,15 @@
-import LpCardSkeleton from "./LpCardSkeleton";
+import { LpCardSkeleton } from "./LpCardSkeleton";
 
-interface LpCardSkeletonListProps {
-    count:number;
+interface LpCardSkeletonList {
+  count: number;
 }
 
-const LpCardSkeletonList = ({count}:LpCardSkeletonListProps) => {
-    return (
-        <>
-            {new Array(count).fill(0).map((_, idx:number) =>(
-                <LpCardSkeleton key={idx}/>
-            ))}
-        </>
-    );
+export const LpCardSkeletonList = ({ count }: LpCardSkeletonList) => {
+  return (
+    <>
+      {new Array(count).fill(0).map((_, idx) => (
+        <LpCardSkeleton key={idx} />
+      ))}
+    </>
+  );
 };
-
-export default LpCardSkeletonList;
