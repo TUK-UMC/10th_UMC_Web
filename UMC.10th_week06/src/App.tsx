@@ -4,7 +4,6 @@ import {
   type RouteObject,
 } from "react-router-dom";
 import "./App.css";
-import { MainLayout } from "./layouts/MainLayout";
 import MainPage from "./pages/MainPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
@@ -15,6 +14,7 @@ import ProtectedLayout from "./layouts/ProtectedLayout";
 import GoogleLoginRedirectPage from "./pages/GoogleLoginRedirectPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import MainLayout from "./layouts/MainLayout";
 
 
 const publicRoutes: RouteObject[] = [

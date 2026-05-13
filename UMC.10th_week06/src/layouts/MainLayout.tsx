@@ -6,10 +6,12 @@ const MainLayout = () => {
   return (
     <div className="h-dvh flex flex-col">
       <Navbar />
-      <main className="flex-1 mt-10>
+      <main className="flex-1 mt-10">
         <Outlet />
       </main>
       <Footer />
     </div>
   );
 };
+
+export default MainLayout;
