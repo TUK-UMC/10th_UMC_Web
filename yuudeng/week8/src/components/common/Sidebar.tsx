@@ -43,7 +43,7 @@ export const Sidebar = ({
     <div>
       <aside
         className={`bg-white dark:bg-[#333337] fixed ${
-          isOpen ? "w-70" : "w-0"
+          isOpen ? "w-60" : "w-0"
         } h-[calc(100dvh-64px)] z-10 mt-16 overflow-hidden shadow-lg`}
       >
         <div className="flex flex-col justify-between h-full p-8">

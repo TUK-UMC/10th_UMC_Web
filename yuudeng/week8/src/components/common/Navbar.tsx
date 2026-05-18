@@ -1,6 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { Search } from "lucide-react";
 import useGetMyInfo from "../../hooks/queries/useGetMyInfo";
 
 interface NavbarProps {
@@ -47,7 +46,6 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
           </NavLink>
         </div>
         <div className="flex items-center space-x-6">
-          <Search color="gray" className="cursor-pointer" />
           {!accessToken && (
             <>
               <NavLink
