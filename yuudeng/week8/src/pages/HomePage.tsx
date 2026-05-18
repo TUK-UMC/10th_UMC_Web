@@ -7,6 +7,7 @@ import { LpCardSkeletonList } from "../components/LpCard/LpCardSkeletonList";
 import useDebounce from "../hooks/useDebounce";
 import { SEARCH_DEBOUNCE_DELAY } from "../constants/delay";
 import { Search } from "lucide-react";
+import useThrottle from "../hooks/useThrottle";
 
 const HomePage = () => {
   const [search, setSearch] = useState("");
@@ -21,17 +22,18 @@ const HomePage = () => {
     isPending,
     fetchNextPage,
     isError,
-  } = useGetInfiniteLpList(50, debouncedValue, order, searchType);
+  } = useGetInfiniteLpList(20, debouncedValue, order, searchType);
 
   // ref : 특정한 HTML 요소를 감시
   // inView: 그 요소가 화면에 보이면 true
   const { ref, inView } = useInView({ threshold: 0 });
+  const throttledInView = useThrottle(inView, 800);
 
   useEffect(() => {
-    if (inView && !isFetching && hasNextPage) {
+    if (throttledInView && !isFetching && hasNextPage) {
       void fetchNextPage();
     }
-  }, [inView, isFetching, hasNextPage, fetchNextPage]);
+  }, [throttledInView, isFetching, hasNextPage, fetchNextPage]);
 
   if (isError) {
     return <div className="mt-20">Error</div>;
