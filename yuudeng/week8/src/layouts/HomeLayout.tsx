@@ -8,7 +8,7 @@ import { CreateLpModal } from "../components/common/Modal/CreateLpModal";
 import { deleteUser } from "../apis/auth";
 import { LOCAL_STORAGE_KEY } from "../constants/key";
 import UserDeleteConfirmModal from "../components/common/Modal/UserDeleteConfirmModal";
-import { useSidebar } from "../hooks/useSidbar";
+import { useSidebar } from "../hooks/useSidebar";
 
 const HomeLayout = () => {
   const { isOpen, toggle, open, close } = useSidebar();

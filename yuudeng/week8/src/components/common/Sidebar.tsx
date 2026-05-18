@@ -42,8 +42,8 @@ export const Sidebar = ({
   return (
     <div>
       <aside
-        className={`bg-white dark:bg-[#333337] fixed ${
-          isOpen ? "w-60" : "w-0"
+        className={`bg-white dark:bg-[#333337] fixed w-60 transform transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
         } h-[calc(100dvh-64px)] z-10 mt-16 overflow-hidden shadow-lg`}
       >
         <div className="flex flex-col justify-between h-full p-8">

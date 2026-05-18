@@ -4,7 +4,7 @@ import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
 import { useEffect, useRef, useState } from "react";
 import { Sidebar } from "../components/common/Sidebar";
-import { useSidebar } from "../hooks/useSidbar";
+import { useSidebar } from "../hooks/useSidebar";
 import { deleteUser } from "../apis/auth";
 import { LOCAL_STORAGE_KEY } from "../constants/key";
 import UserDeleteConfirmModal from "../components/common/Modal/UserDeleteConfirmModal";

@@ -4,7 +4,6 @@ export default function useDebounce<T>(value: T, delay: number) {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
   useEffect(() => {
-    if (typeof value === "string" && value.trim() === "") return;
     // delay 시간 후에 value를 debouncedValue로 업데이트하는 타이머를 시작
     const handler = setTimeout(() => setDebouncedValue(value), delay);
 

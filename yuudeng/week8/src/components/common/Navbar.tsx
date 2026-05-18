@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import useGetMyInfo from "../../hooks/queries/useGetMyInfo";
 
 interface NavbarProps {
-  onMenuClick?: () => void; // 🔹 사이드바 열기 함수 받기
+  onMenuClick: () => void; // 🔹 사이드바 열기 함수 받기
 }
 
 const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
