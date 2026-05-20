@@ -1,19 +1,19 @@
 import { useMutation } from "@tanstack/react-query";
-import { postLike } from "../../apis/lp";
+import { postLike } from "../../apis/lp.ts";
 import { queryClient } from "../../App.tsx";
 import { QUERY_KEY } from "../../constants/key.ts";
 
 export default function usePostLike() {
-    return useMutation({
+  return useMutation({
     mutationFn: postLike,
     // data -> API 성공 응답 데이터
     // variables -> mutate에 전달한 값
     // context -> onMutate에서 반환한 값
     onSuccess: (data) => {
-        queryClient.invalidateQueries({
+      queryClient.invalidateQueries({
         queryKey: [QUERY_KEY.lps, data.data.lpId],
         exact: true,
-        });
+      });
     },
     // error -> 요청 실패시 발생한 에러
     // variables -> mutate에 전달한 값
@@ -25,5 +25,5 @@ export default function usePostLike() {
     // 요청이 끝난 후 항상 실행(OnSuccess, onError 이후 실행)
     // 로딩 상태를 초기화할때 유용
     onSettled: () => {},
-    });
+  });
 }
