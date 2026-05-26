@@ -1,5 +1,8 @@
 import "./App.css";
 import UseReducerCompany from "./useReducer/UseReducerCompany";
-export default function App() {
+
+function App() {
   return <UseReducerCompany />;
 }
+
+export default App;
