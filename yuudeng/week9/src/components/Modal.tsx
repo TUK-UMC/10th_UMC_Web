@@ -1,20 +1,19 @@
-import { useDispatch } from "../hook/useCustomRedux";
-import { closeModal } from "../slices/modalSlice";
+import { useModalActions } from "../hook/useModalStore";
 
 interface ModalProps {
   onConfirm: () => void;
 }
 
 export const Modal = ({ onConfirm }: ModalProps) => {
-  const dispatch = useDispatch();
+  const { closeModal } = useModalActions();
 
   const handleCloseModal = () => {
-    dispatch(closeModal());
+    closeModal();
   };
 
   const handleConfirm = () => {
     onConfirm();
-    dispatch(closeModal());
+    closeModal();
   };
 
   return (
