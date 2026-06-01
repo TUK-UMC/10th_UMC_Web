@@ -1,13 +1,18 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-import UseMemoPage from "./useMemo/UseMemoPage";
+import HomePage from "./pages/HomePage";
+import MovieDetailPage from "./pages/MovieDetailPage";
+
+const router = createBrowserRouter([
+  { path: "/", element: <HomePage /> },
+  { path: "/:id", element: <MovieDetailPage /> },
+]);
 
 function App() {
   return (
-    <>
-      <main className="flex flex-col justify-center items-center h-full">
-        <UseMemoPage />
-      </main>
-    </>
+    <div className="App">
+      <RouterProvider router={router} />
+    </div>
   );
 }
 
