@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+#root {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 20px;
+}
+
+.app {
+  text-align: center;
+}
